@@ -43,11 +43,18 @@ highlight:
   auto_detect: true
   tab_replace:
 
-# auto genrate sitemap
+# auto generate sitemap
 sitemap:
   path: sitemap.xml
 baidusitemap:
   path: baidusitemap.xml
+
+# baidu aito submit
+baidu_url_submit:
+  count: 2
+  host: myronji.github.io
+  token: KrLneFdb4YioHz11
+  path: baidu_urls.txt
    
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
@@ -93,3 +100,4 @@ deploy:
     ignore_hidden: false
     ignore_pattern:
         public: .
+  - type: baidu_url_submiter
