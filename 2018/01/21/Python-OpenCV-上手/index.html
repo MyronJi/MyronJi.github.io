@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.0" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Python,OpenCV," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="为了从dan哥获取答案，在答题卡中找到答案的位置，所以有了本篇openCV的学习笔记。记录遇到的坑和解决方法。">
+<meta name="keywords" content="Python,OpenCV">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python OpenCV 上手">
+<meta property="og:url" content="https://myronji.github.io/2018/01/21/Python-OpenCV-上手/index.html">
+<meta property="og:site_name" content="Level up">
+<meta property="og:description" content="为了从dan哥获取答案，在答题卡中找到答案的位置，所以有了本篇openCV的学习笔记。记录遇到的坑和解决方法。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://myronji.github.io/2018/01/21/Python-OpenCV-上手/img.png">
+<meta property="og:image" content="https://myronji.github.io/2018/01/21/Python-OpenCV-上手/img_gray.png">
+<meta property="og:image" content="https://myronji.github.io/2018/01/21/Python-OpenCV-上手/img_cut.png">
+<meta property="og:updated_time" content="2018-01-21T17:04:30.991Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python OpenCV 上手">
+<meta name="twitter:description" content="为了从dan哥获取答案，在答题卡中找到答案的位置，所以有了本篇openCV的学习笔记。记录遇到的坑和解决方法。">
+<meta name="twitter:image" content="https://myronji.github.io/2018/01/21/Python-OpenCV-上手/img.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://myronji.github.io/2018/01/21/Python-OpenCV-上手/"/>
+
+
+
+
+
+  <title>Python OpenCV 上手 | Level up</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Level up</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">乱点技能树</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+
+            
+              首页
+            
+
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+
+            
+              归档
+            
+
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+
+            
+              标签
+            
+
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+
+            
+              分类
+            
+
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://myronji.github.io/2018/01/21/Python-OpenCV-上手/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MyronJi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Level up">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python OpenCV 上手</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-21T18:45:29+08:00">2018-01-21</time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-01-22T01:04:30+08:00">2018-01-22</time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Notes/" itemprop="url" rel="index">
+                    <span itemprop="name">Notes</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/01/21/Python-OpenCV-上手/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2018/01/21/Python-OpenCV-上手/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>为了从dan哥获取答案，在答题卡中找到答案的位置，所以有了本篇openCV的学习笔记。记录遇到的坑和解决方法。<br><a id="more"></a></p>
+<h1 id="前置"><a href="#前置" class="headerlink" title="前置"></a>前置</h1><p>目前openCV已经到了2.0版本，据说语法简单了很多，所以我们就用这个版本。<br><div class="note info"><p>import cv2</p></div><br>因为图片是由一个个像素点组成，而像素点又是rgb值来表示，所以图片在python中就是一堆rgb值。<br>恰好Numpy可以很好的处理这堆像素点，所以还要<br><div class="note info"><p>import numpy as np</p></div></p>
+<h2 id="打开图像"><a href="#打开图像" class="headerlink" title="打开图像"></a>打开图像</h2><p>打开图片一句话搞定：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">img = cv2.imread(<span class="string">r'img\\img.png'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>显示图像需要几个步骤▼<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">display_im</span><span class="params">(img)</span>:</span> </span><br><span class="line">    cv2.namedWindow(<span class="string">"Image"</span>, cv2.WINDOW_NORMAL)   <span class="comment"># 创建图像窗口,默认cv2.WINDOW_AUTOSIZE，不可调窗口大小。cv2.WINDOW_NORMAL可调节大小。</span></span><br><span class="line">    cv2.imshow(<span class="string">"Image"</span>, img)   <span class="comment"># 显示指定图像</span></span><br><span class="line">    cv2.waitKey (<span class="number">0</span>)            <span class="comment"># 暂停并等待键盘输入；0表示你不输入它就一直等。不等的话图片一闪就过去了，啥都看不到）</span></span><br><span class="line">    cv2.destroyAllWindows()    <span class="comment"># #释放窗口，简单暴力释放掉所有的窗口</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="查看图像大小"><a href="#查看图像大小" class="headerlink" title="查看图像大小"></a>查看图像大小</h2><p>一句话~<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(img.shape[:<span class="number">2</span>])</span><br></pre></td></tr></table></figure></p>
+<p>输出结果是<code>(38, 80)</code>，记好了一会还会提到这个数。</p>
+<h2 id="保存图像"><a href="#保存图像" class="headerlink" title="保存图像"></a>保存图像</h2><p>同样是一句话搞定<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cv2.imwrite(<span class="string">'target.png'</span>, img)</span><br></pre></td></tr></table></figure></p>
+<h1 id="处理图像（基础版）"><a href="#处理图像（基础版）" class="headerlink" title="处理图像（基础版）"></a>处理图像（基础版）</h1><h2 id="python中的图像"><a href="#python中的图像" class="headerlink" title="python中的图像"></a>python中的图像</h2><p>比如这张简单的图像<br><img src="/2018/01/21/Python-OpenCV-上手/img.png" alt=""><br>用cv2打开，然后直接打印出来▼<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">img = cv2.imread(<span class="string">r'img.png'</span>)</span><br><span class="line">print(img)</span><br></pre></td></tr></table></figure></p>
+<p>结果是这样的一坨数组，为了方便观察，我这里手动转换一下。<br><div class="note info"><ul>
+<li>数据量比较大，只显示了首尾的内容</li>
+<li>图片四角都是白色的，所以这里只能看到255</li>
+<li>通过<code>np.set_printoptions(threshold=np.inf)</code>可以打印所有值</li>
+</ul></div><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[[[<span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]</span><br><span class="line">  [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]</span><br><span class="line">  [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]</span><br><span class="line">  ..., </span><br><span class="line">  [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]</span><br><span class="line">  [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]</span><br><span class="line">  [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]]</span><br><span class="line"></span><br><span class="line"> [[<span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]</span><br><span class="line">  [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]</span><br><span class="line">  [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]</span><br><span class="line">  ..., </span><br><span class="line">  [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]</span><br><span class="line">  [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]</span><br><span class="line">  [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]]</span><br></pre></td></tr></table></figure></p>
+<p>这样看起来好多了▼<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line"> [[<span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]  [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]  [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]  ...,   [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]  [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]  [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]]</span><br><span class="line"> [[<span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]  [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]  [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]  ...,   [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]  [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]  [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]]</span><br><span class="line"> ..., </span><br><span class="line"> [[<span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]  [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]  [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]  ...,   [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]  [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]  [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]]</span><br><span class="line"> [[<span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]  [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]  [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]  ...,   [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]  [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]  [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]]</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<p>让洒家来简单分析一下这个数组吧▼<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(len(img)) <span class="comment">#告诉洒家你这个数组一共有几行？</span></span><br><span class="line">print(len(img[<span class="number">0</span>])) <span class="comment"># 第一行有几列？</span></span><br><span class="line">print(len(img[<span class="number">0</span>][<span class="number">0</span>])) <span class="comment"># 第一列有几个元素？</span></span><br><span class="line">print(len(img[<span class="number">0</span>][<span class="number">0</span>][<span class="number">0</span>]))<span class="comment"># 第一个元素里有几个东西？</span></span><br></pre></td></tr></table></figure></p>
+<p>结果如下▼<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">38</span></span><br><span class="line"><span class="number">80</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line">---------------------------------------------------------------------------</span><br><span class="line">TypeError</span><br></pre></td></tr></table></figure></p>
+<p>数组有38行80列，眼不眼熟？和上面的<code>(38, 80)</code>对上了！所以▼</p>
+<ul>
+<li><code>3</code>是什么？是<code>[255 255 255]</code>，熟悉<code>RGB</code>的都知道是红绿蓝3种颜色的值。然而CV里是<code>BGR</code>，不要搞混哟。图片是由一行一行的彩色像素点组成的，所以我们可以用一个三维数组来表示图片中的每一个点。</li>
+<li>最里面的数组<code>[255 255 255]</code>是一个<code>BGR</code>表示的像素点颜色</li>
+<li>一行<code>[[255 255 255] ..., [255 255 255]]</code>就表示图片的一行像素点，一行有80个这样的点</li>
+<li>所有行放在一起一共38行，就是一副完整的图片了。这也是为什么我们可以用numpy来处理图片了。<br>最后的<code>TypeError</code>是什么鬼？</li>
+<li>图片的最小单位就是像素里的三个颜色。颜色是个数值而不是数组，对数值用<code>len()</code>就报错了。</li>
+</ul>
+<h2 id="转换成灰度图像"><a href="#转换成灰度图像" class="headerlink" title="转换成灰度图像"></a>转换成灰度图像</h2><p>灰度图像有助提升复杂操作的速度哦~<br>还是一句话：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)</span><br></pre></td></tr></table></figure></p>
+<p>来看一下结果，红字变成灰字了。<br><img src="/2018/01/21/Python-OpenCV-上手/img_gray.png" alt=""><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="number">255</span> <span class="number">255</span> <span class="number">255</span> ..., <span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]</span><br><span class="line"> [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span> ..., <span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]</span><br><span class="line"> [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span> ..., <span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]</span><br><span class="line"> ..., </span><br><span class="line"> [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span> ..., <span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]</span><br><span class="line"> [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span> ..., <span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]</span><br><span class="line"> [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span> ..., <span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]]</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>可以看到由3维数组变成了2位数组（啊，受到了降维攻击！）。</li>
+<li>这是因为灰度图像的像素点只有一种颜色，用0到255的值就能表示了。</li>
+<li><code>uint8</code>（无符号整形变量）的范围正好是0-255，所以numpy处理图像通常都用这个格式。</li>
+<li>这里打印依然是图像的四个角，所以还是255.。。。</li>
+</ul>
+<h2 id="截取图像"><a href="#截取图像" class="headerlink" title="截取图像"></a>截取图像</h2><p>借助python的切片器可以很优雅的截取像素，洒家截一块不是纯白的给你们看看▼<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">img_cut = img[<span class="number">10</span>:<span class="number">30</span>, <span class="number">30</span>:<span class="number">40</span>]  <span class="comment"># 截取high,width</span></span><br></pre></td></tr></table></figure></p>
+<p>截取第11到29行，30到40列。总算有些不一样值出现了▼<br><img src="/2018/01/21/Python-OpenCV-上手/img_cut.png" alt=""><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">250</span> <span class="number">234</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]</span><br><span class="line"> [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">184</span> <span class="number">128</span> <span class="number">223</span> <span class="number">255</span> <span class="number">255</span>]</span><br><span class="line"> [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">239</span> <span class="number">147</span> <span class="number">128</span> <span class="number">231</span> <span class="number">255</span>]</span><br><span class="line"> [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">243</span> <span class="number">144</span> <span class="number">223</span> <span class="number">255</span>]</span><br><span class="line"> [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">250</span> <span class="number">255</span> <span class="number">250</span>]</span><br><span class="line"> [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">250</span>]</span><br><span class="line"> [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">252</span> <span class="number">221</span> <span class="number">221</span> <span class="number">221</span> <span class="number">240</span> <span class="number">213</span>]</span><br><span class="line"> [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">246</span> <span class="number">120</span> <span class="number">120</span> <span class="number">120</span> <span class="number">205</span> <span class="number">200</span>]</span><br><span class="line"> [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">252</span> <span class="number">252</span> <span class="number">126</span> <span class="number">205</span> <span class="number">255</span>]</span><br><span class="line"> [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">126</span> <span class="number">205</span> <span class="number">255</span>]</span><br><span class="line"> [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">126</span> <span class="number">205</span> <span class="number">255</span>]</span><br><span class="line"> [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">126</span> <span class="number">205</span> <span class="number">255</span>]</span><br><span class="line"> [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">126</span> <span class="number">205</span> <span class="number">208</span>]</span><br><span class="line"> [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">253</span> <span class="number">125</span> <span class="number">186</span> <span class="number">242</span>]</span><br><span class="line"> [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">252</span> <span class="number">200</span> <span class="number">140</span> <span class="number">174</span> <span class="number">166</span> <span class="number">128</span>]</span><br><span class="line"> [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">172</span> <span class="number">179</span> <span class="number">254</span> <span class="number">255</span> <span class="number">226</span>]</span><br><span class="line"> [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">248</span> <span class="number">254</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]</span><br><span class="line"> [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]</span><br><span class="line"> [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]</span><br><span class="line"> [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]]</span><br></pre></td></tr></table></figure></p>
+<h1 id="处理图像-高级版"><a href="#处理图像-高级版" class="headerlink" title="处理图像(高级版)"></a>处理图像(高级版)</h1><p>给你们来点高级货~</p>
+<h2 id="搜索图像"><a href="#搜索图像" class="headerlink" title="搜索图像"></a>搜索图像</h2><p>先上代码▼<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">res = cv2.matchTemplate(target, img, cv2.TM_CCOEFF_NORMED)</span><br></pre></td></tr></table></figure></p>
+<p>意思就是从<code>target</code>图片中找到<code>img</code>图片，找到后给出一个。。。。<br>偶，时间不早了，下次接着写吧~</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束，感谢您的阅读。如有疑问请及时提出-------------</div>
+    
+</div>
+      </div>
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    MyronJi
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://myronji.github.io/2018/01/21/Python-OpenCV-上手/" title="Python OpenCV 上手">https://myronji.github.io/2018/01/21/Python-OpenCV-上手/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i>Python</a>
+          
+            <a href="/tags/OpenCV/" rel="tag"><i class="fa fa-tag"></i>OpenCV</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/14/解决Git-merge时的冲突/" rel="next" title="解决Git merge时的冲突">
+                <i class="fa fa-chevron-left"></i> 解决Git merge时的冲突
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/28/Python-OpenCV-上手-2/" rel="prev" title="Python OpenCV 上手-2">
+                Python OpenCV 上手-2 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="hypercomments_widget"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">MyronJi</p>
+              <p class="site-description motion-element" itemprop="description">Study and practice. Years of it.</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/MyronJi" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前置"><span class="nav-number">1.</span> <span class="nav-text">前置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#打开图像"><span class="nav-number">1.1.</span> <span class="nav-text">打开图像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看图像大小"><span class="nav-number">1.2.</span> <span class="nav-text">查看图像大小</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#保存图像"><span class="nav-number">1.3.</span> <span class="nav-text">保存图像</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#处理图像（基础版）"><span class="nav-number">2.</span> <span class="nav-text">处理图像（基础版）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#python中的图像"><span class="nav-number">2.1.</span> <span class="nav-text">python中的图像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#转换成灰度图像"><span class="nav-number">2.2.</span> <span class="nav-text">转换成灰度图像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#截取图像"><span class="nav-number">2.3.</span> <span class="nav-text">截取图像</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#处理图像-高级版"><span class="nav-number">3.</span> <span class="nav-text">处理图像(高级版)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#搜索图像"><span class="nav-number">3.1.</span> <span class="nav-text">搜索图像</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MyronJi</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Gemini</a> v6.0.0</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=64952411";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+		<script type="text/javascript">
+		_hcwp = window._hcwp || [];
+
+		_hcwp.push({widget:"Bloggerstream", widget_id: 99976, selector:".hc-comment-count", label: "{\%COUNT%\}" });
+
+		
+		_hcwp.push({widget:"Stream", widget_id: 99976, xid: "2018/01/21/Python-OpenCV-上手/"});
+		
+
+		(function() {
+		if("HC_LOAD_INIT" in window)return;
+		HC_LOAD_INIT = true;
+		var lang = (navigator.language || navigator.systemLanguage || navigator.userLanguage || "en").substr(0, 2).toLowerCase();
+		var hcc = document.createElement("script"); hcc.type = "text/javascript"; hcc.async = true;
+		hcc.src = ("https:" == document.location.protocol ? "https" : "http")+"://w.hypercomments.com/widget/hc/99976/"+lang+"/widget.js";
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(hcc, s.nextSibling);
+		})();
+		</script>
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

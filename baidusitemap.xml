@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+
+    
+  <url>
+    <loc>https://myronji.github.io/2018/01/28/Python-OpenCV-%E4%B8%8A%E6%89%8B-2/</loc>
+    <lastmod>2018-02-03T09:49:17.783Z</lastmod>
+    <data>
+        <display>
+        <title>Python OpenCV 上手-2</title>
+        <pubTime>2018-01-28T15:43:24.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+        <tag>OpenCV</tag>
+         
+         
+           
+             
+              <breadCrumb title="Notes" url="https://myronji.github.io/categories/Notes/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://myronji.github.io/2018/01/21/Python-OpenCV-%E4%B8%8A%E6%89%8B/</loc>
+    <lastmod>2018-01-21T17:04:30.991Z</lastmod>
+    <data>
+        <display>
+        <title>Python OpenCV 上手</title>
+        <pubTime>2018-01-21T10:45:29.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+        <tag>OpenCV</tag>
+         
+         
+           
+             
+              <breadCrumb title="Notes" url="https://myronji.github.io/categories/Notes/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://myronji.github.io/2018/01/06/%E6%90%9C%E7%8B%90%E6%96%B0%E9%97%BB%E8%AF%AD%E6%96%99%E4%B8%8A%E7%9A%84Word2Vec%E5%AE%9E%E9%AA%8C/</loc>
+    <lastmod>2018-01-21T10:47:27.479Z</lastmod>
+    <data>
+        <display>
+        <title>搜狐新闻语料上的Word2Vec实验</title>
+        <pubTime>2018-01-06T06:58:21.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+        <tag>NLP</tag>
+         
+        <tag>Machine Learning</tag>
+         
+         
+           
+             
+              <breadCrumb title="Notes" url="https://myronji.github.io/categories/Notes/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+    
+    
+  <url>
+    <loc>https://myronji.github.io/2018/01/14/%E8%A7%A3%E5%86%B3Git-merge%E6%97%B6%E7%9A%84%E5%86%B2%E7%AA%81/</loc>
+    <lastmod>2018-01-14T16:25:40.507Z</lastmod>
+    <data>
+        <display>
+        <title>解决Git merge时的冲突</title>
+        <pubTime>2018-01-14T10:23:43.000Z</pubTime>
+        
+        <tag>Git</tag>
+         
+         
+           
+             
+              <breadCrumb title="Tool" url="https://myronji.github.io/categories/Tool/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+    
+</urlset>
